@@ -10,7 +10,8 @@ class ApiService {
   };
 
   static Map<String, dynamic> _parseResponse(http.Response response) {
-    final bool isSuccess = response.statusCode >= 200 && response.statusCode < 300;
+    final bool isSuccess =
+        response.statusCode >= 200 && response.statusCode < 300;
 
     try {
       final dynamic decoded = jsonDecode(response.body);
@@ -18,7 +19,9 @@ class ApiService {
       if (decoded is Map<String, dynamic>) {
         return {
           ...decoded,
-          'success': decoded['success'] is bool ? decoded['success'] : isSuccess,
+          'success': decoded['success'] is bool
+              ? decoded['success']
+              : isSuccess,
           'statusCode': response.statusCode,
         };
       }
@@ -84,7 +87,6 @@ class ApiService {
     }
   }
 
-  // ─── CREATE USER (REGISTER) ──────────────
   static Future<Map<String, dynamic>> createUser(
     String username,
     String email,
@@ -106,7 +108,6 @@ class ApiService {
     }
   }
 
-  // ─── UPDATE USER ─────────────────────────
   static Future<Map<String, dynamic>> updateUser(
     int userId, {
     String? username,
@@ -129,7 +130,6 @@ class ApiService {
     }
   }
 
-  // ─── DELETE USER ─────────────────────────
   static Future<Map<String, dynamic>> deleteUser(int userId) async {
     try {
       final response = await http.delete(
